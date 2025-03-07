@@ -150,9 +150,13 @@ void printDivResult(DivisionResults results, int dividend, int divisor) {
     if (results.remainder > 0) {
       int remainder = results.remainder;
       for(int i = 0; i < 3; i++) {
-        dividend *= 10;
-        int decimalNum = dividend /= remainder;
+        remainder *= 10;
+        int decimalNum = remainder /= divisor;
+        remainder %= divisor;
         std::cout << decimalNum;
+        if(remainder==0) {
+          break;
+        }
       }
       results.remainder = remainder;
     }
@@ -166,7 +170,7 @@ int main() {
   std::cout << "Select the Operation Type. \n";
   std::cout << "1. Addition \n";
   std::cout << "2. Multiplication \n";
-  std::cout << "3. Division \n";
+  std::cout << "3. Division \n" << std::flush;
   int operationchoice = getUserInput();
 
   if (operationchoice < 1 || operationchoice > 3) {
@@ -196,6 +200,6 @@ int main() {
         exit(1);
     }
     DivisionResults results = divideTwoNums(inputs.firstNum, inputs.secondNum);
-    printDivResult(results, int dividend, int divisor);
+    printDivResult(results, inputs.firstNum, inputs.secondNum);
   }
 }
