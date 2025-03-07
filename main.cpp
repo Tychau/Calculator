@@ -134,21 +134,7 @@ DivisionResults divideTwoNums(int dividend, int divisor) {
   results.quotient = dividend / divisor;
   results.remainder = dividend % divisor;
 
-  if (results.remainder != 0) {
-
-    int remainder = results.remainder;
-    for(int i = 1; i < 3; i++) {
-        remainder *= 10;
-        int decimalNum = remainder / divisor;
-        remainder %= divisor;
-        std::cout << remainder;
-      
-        if(remainder == 0) {
-          break;
-        }
-    }
-    results.remainder = remainder;
-  }
+  
   return results;
 }
 
@@ -160,8 +146,19 @@ void printMultResult(int result) {
   std::cout << "The product of the two numbers is " << result << ".\n";
 }
 
-void printDivResult(DivisionResults results) {
-  std::cout << "The quotient of the two numbers is " << results.quotient;
+void printDivResult(DivisionResults results, int dividend, int divisor) {
+    if (results.remainder > 0) {
+      int remainder = results.remainder;
+      for(int i = 0; i < 3; i++) {
+        dividend *= 10;
+        int decimalNum = dividend /= remainder;
+        std::cout << decimalNum;
+      }
+      results.remainder = remainder;
+    }
+   else {
+    std::cout << "The quotient of the two numbers is " << results.quotient;
+  }
 }
   
 
@@ -199,6 +196,6 @@ int main() {
         exit(1);
     }
     DivisionResults results = divideTwoNums(inputs.firstNum, inputs.secondNum);
-    printDivResult(results);
+    printDivResult(results, int dividend, int divisor);
   }
 }
