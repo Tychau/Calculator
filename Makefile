@@ -1,16 +1,40 @@
-all: main
+CC = g++
+CFLAGS = -Wall -g # -Wall enables all warnings, -g adds debugging information
+LDFLAGS = 
+TESTFLAGS = -DTEST_MODE
 
-CXX = clang++
-override CXXFLAGS += -g -Wall -Werror
+# Source files and object files
+SOURCES = $(wildcard *.cpp)
+OBJECTS = $(SOURCES:.cpp=.o)
 
-SRCS = $(shell find . -name '.ccls-cache' -type d -prune -o -type f -name '*.cpp' -print | sed -e 's/ /\\ /g')
-HEADERS = $(shell find . -name '.ccls-cache' -type d -prune -o -type f -name '*.h' -print)
+MAIN_EXEC = main
+TEST_EXEC = test
 
-main: $(SRCS) $(HEADERS)
-	$(CXX) $(CXXFLAGS) $(SRCS) -o "$@"
+# Default target
+all: $(MAIN_EXEC)
 
-main-debug: $(SRCS) $(HEADERS)
-	NIX_HARDENING_ENABLE= $(CXX) $(CXXFLAGS) -O0  $(SRCS) -o "$@"
+# Compile main.cpp normally
+$(MAIN_EXEC):
+	$(CC) $(CFLAGS) main.cpp -o $(MAIN_EXEC)
 
+# Compile object files
+%.o: %.cpp
+	$(CC) $(CFLAGS) -c $< -o $@
+
+# Link object files to create the executable
+# $(MAIN_EXEC): $(OBJECTS)
+# 	$(CC) $(LDFLAGS) $^ -o $@
+
+$(TEST_EXEC): $(SOURCES)
+	$(CC) $(TESTFLAGS) $(SOURCES) -o $(TEST_EXEC)
+
+# Run programs
+run: $(MAIN_EXEC)
+	./$(MAIN_EXEC)
+
+run_test: $(TEST_EXEC)
+	./$(TEST_EXEC)
+
+# Clean build artifacts 
 clean:
-	rm -f main main-debug
+	del $(wildcard *.exe) $(wildcard *.o)
