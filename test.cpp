@@ -57,7 +57,7 @@ void BinTestCases() {
     BinTest("1001", "111", "10000");
     
     if (isAllTest == false) {
-    std::cout << "\033[33m" << passedTest << " out of " << "11 passed.\033[0m" << std::endl;
+        std::cout << "\033[33m" << passedTest << " out of " << "11 passed.\033[0m" << std::endl;
     }
     std::cout << std::endl;
     totalPassed += passedTest;
@@ -122,7 +122,7 @@ void DivisionTestCases() {
     DivTest(-10 , -3, 3, 33333);
 
     if (isAllTest == false) {
-    std::cout << "\033[33m" << passedTest << " out of " << "15 passed.\033[0m" << std::endl;
+        std::cout << "\033[33m" << passedTest << " out of " << "15 passed.\033[0m" << std::endl;
     }
     std::cout << std::endl;
     totalPassed += passedTest;
@@ -164,7 +164,7 @@ void MultiplicationTestCases() {
     MultiplicationTest(-1073741825, 2, 2147483646);
 
     if (isAllTest == false) {
-    std::cout << "\033[33m" << passedTest << " out of " << "8 passed.\033[0m" << std::endl;
+        std::cout << "\033[33m" << passedTest << " out of " << "8 passed.\033[0m" << std::endl;
     }
     std::cout << std::endl;
     totalPassed += passedTest;
@@ -203,7 +203,7 @@ void AddTestCases() {
     AddTest(-1073741824, -1073741825, 2147483647);
 
     if (isAllTest == false) {
-    std::cout << "\033[33m" << passedTest << " out of" << " 8 passed.\033[0m" << std::endl;
+        std::cout << "\033[33m" << passedTest << " out of" << " 8 passed.\033[0m" << std::endl;
     }
     std::cout << std::endl;
     totalPassed += passedTest;
