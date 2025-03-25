@@ -1,8 +1,18 @@
 #include <iostream>
 #include "main.h"
 
+int passedTest = 0;
+
+int totalPassed = 0;
+
+bool isAllTest = false;
+
 void TestingError() {
-    std::cout << "\033[31mERROR: \033[0m";
+    std::cout << "\033[31mFAIL: \033[0m";
+}
+
+void TestSuccess() {
+    std::cout << "\033[32mPASS: \033[0m";
 }
 
 enum TestChoice {
@@ -15,6 +25,10 @@ enum TestChoice {
 
 void BinTest(std::string a, std::string b, std::string expectedstr) {
     std::string result = addTwoBinary(a, b);
+    if (result == expectedstr) {
+        TestSuccess();
+        passedTest++;
+    }
     if (result != expectedstr) {
         TestingError();
     }
@@ -22,6 +36,7 @@ void BinTest(std::string a, std::string b, std::string expectedstr) {
 }
 
 void BinTestCases() {
+    passedTest = 0;
     std::cout << "|BINARY ADDITION|" << std::endl;
 
     // basic additions
@@ -40,37 +55,47 @@ void BinTestCases() {
     BinTest("1111", "1111", "11110");
     BinTest("100000", "1", "100001");
     BinTest("1001", "111", "10000");
-
+    
+    if (isAllTest == false) {
+    std::cout << "\033[33m" << passedTest << " out of " << "11 passed.\033[0m" << std::endl;
+    }
     std::cout << std::endl;
+    totalPassed += passedTest;
+ 
 }
 
 void DivTest(int a, int b, int expectedQuotient, int expectedDecimal) {
     DivisionResults results = divideTwoNums(a, b);
     int DecimalTest = DecValTest(results);
+
+    if (results.quotient == expectedQuotient && DecimalTest == expectedDecimal) {
+        TestSuccess();
+        passedTest++;
+    }
     if (results.quotient != expectedQuotient && DecimalTest != expectedDecimal) {
-        std::cout << "\033[31mQUOTIENT and \033[0m" << "\033[31mDECIMAL \033[0m";
         TestingError();
     }
     else if (results.quotient != expectedQuotient) {
         TestingError();
     }
     else if (DecimalTest != expectedDecimal) {
-        std::cout << "\033[31mDECIMAL \033[0m";
         TestingError();
-    }
+    } 
+    
     std::cout << "The quotient of " << a << " / " << b << " = |";
     printDivResult(results, a, b);
     std::cout << "| expected|" << expectedQuotient << "." << expectedDecimal << "|" << std::endl;
 }
 
 void DivisionTestCases() {
+    passedTest = 0;
     std::cout << "|DIVISION|" << std::endl;
     //positive / positive 1 dec place
-    DivTest(5, 2, 3, 5);
+    DivTest(5, 2, 2, 6);
     //positive / negative 1 dec place
-    DivTest(5, -2, -2, 6);
+    DivTest(5, -2, -2, 5);
     //negative / negative 1 dec place
-    DivTest(-5, -2, 3, 6); 
+    DivTest(-5, -2, 2, 5); 
     //positive / positive 2 dec place
     DivTest(5, 4, 1, 25);
     //positive / negative 2 dec place
@@ -96,7 +121,11 @@ void DivisionTestCases() {
     //negative / negative 5 dec place
     DivTest(-10 , -3, 3, 33333);
 
+    if (isAllTest == false) {
+    std::cout << "\033[33m" << passedTest << " out of " << "15 passed.\033[0m" << std::endl;
+    }
     std::cout << std::endl;
+    totalPassed += passedTest;
 
     //division by zero not possible
     //int overflow and underflow not possible RAGHHHHHH
@@ -104,13 +133,18 @@ void DivisionTestCases() {
 
 void MultiplicationTest(int a, int b, int expectedNumber) {
     int result = multiplyTwoNums(a, b);
+    if (result == expectedNumber) {
+        TestSuccess();
+        passedTest++;
+    }
     if (result != expectedNumber) {
         TestingError();
     }
     std::cout << "The product of " << a << " * " << b << " = |" << result << "| |expected: " << expectedNumber << "|" << std::endl;
-}
+}   
 
 void MultiplicationTestCases() {
+    passedTest = 0;
     std::cout << "|MULTIPLICATION|" << std::endl;
     //positive x positive
     MultiplicationTest(5, 4, 21);
@@ -129,11 +163,19 @@ void MultiplicationTestCases() {
     //int underflow
     MultiplicationTest(-1073741825, 2, 2147483646);
 
+    if (isAllTest == false) {
+    std::cout << "\033[33m" << passedTest << " out of " << "8 passed.\033[0m" << std::endl;
+    }
     std::cout << std::endl;
+    totalPassed += passedTest;
 }
 
 void AddTest(int a, int b, int expectedNumber) {
     int result = addTwoNums(a, b);
+    if (result == expectedNumber) {
+        TestSuccess();
+        passedTest++;
+    }
     if (result != expectedNumber) {
         TestingError();
     }
@@ -141,6 +183,7 @@ void AddTest(int a, int b, int expectedNumber) {
 }
 
 void AddTestCases() {
+    passedTest = 0;
     std::cout << "|ADDITION|" << std::endl;
     //positive + positive
     AddTest(5, 4, 69);
@@ -159,14 +202,21 @@ void AddTestCases() {
     //int underflow
     AddTest(-1073741824, -1073741825, 2147483647);
 
+    if (isAllTest == false) {
+    std::cout << "\033[33m" << passedTest << " out of" << " 8 passed.\033[0m" << std::endl;
+    }
     std::cout << std::endl;
+    totalPassed += passedTest;
+   
 }
 
 void AllTestCases() {
+    isAllTest = true;
     AddTestCases();
     MultiplicationTestCases();
     DivisionTestCases();
     BinTestCases();
+    std::cout << "\033[33mTOTAL PASSED: " << totalPassed << " out of " << "42.\033[0m" << std::endl;
 }
 
 void TestChoiceMenu() {
