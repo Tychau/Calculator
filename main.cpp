@@ -1,6 +1,10 @@
 #include <iostream>
 #include "main.h"
 
+void exitMessage() {
+  std::cout << "Exitting program";
+}
+
 void generalErrorMessage() {
   std::cerr << "Invalid input! Exiting program.\n";
   exit(1);
@@ -54,7 +58,8 @@ void intOverflow() {
 }
 
 enum operationType {
-  ADDITION = 1,
+  EXIT = 0,
+  ADDITION,
   MULTIPLICATION,
   DIVISION,
 };
@@ -292,18 +297,23 @@ void whileDivResult(DivisionResults results, int dividend, int divisor) {
 
 void BaseTenMath() {
   std::cout << "Select the Operation Type:\n";
+  std::cout << "0. Exit \n";
   std::cout << "1. Addition \n";
   std::cout << "2. Multiplication \n";
   std::cout << "3. Division \n" << std::endl;
   std::cout << "> ";
 
   int operationchoice = getUserInput();
-  if (operationchoice < 1 || operationchoice > 3) {
+  if (operationchoice < 0 || operationchoice > 3) {
     generalErrorMessage();
   }
 
   operationType operation = static_cast<operationType>(operationchoice);
 
+  if (operation == EXIT) {
+    exitMessage();
+    exit(0);
+  }
   if (operation == ADDITION) {
     std::cout << "Enter two numbers to add: \n";
     InputNums inputs = getUserInputsBaseTen();
