@@ -57,15 +57,9 @@ void intOverflow() {
   exit(1);
 }
 
-enum operationType {
-  EXIT = 0,
-  ADDITION,
-  MULTIPLICATION,
-  DIVISION,
-};
-
 enum baseType {
-  BASETEN = 1,
+  EXITPROGRAM,
+  BASETEN,
   BASETWO,
 };
 
@@ -346,17 +340,22 @@ void BaseTwoMath() {
 
 void BaseMenuChoice() {
   std::cout << "Select Base Type:\n";
+  std::cout << "0. Exit\n";
   std::cout << "1. Base Ten\n";
   std::cout << "2. Base Two\n" << std::endl;
   std::cout << ">  ";
 
   int choosebase = getUserInput();
-  if (choosebase < 1 || choosebase > 2) {
+  if (choosebase < 0 || choosebase > 2) {
     generalErrorMessage();
   }
 
   baseType baseChoice = static_cast<baseType>(choosebase);
 
+  if (choosebase == EXITPROGRAM) {
+    exitMessage();
+    exit(0);
+  }
   if (choosebase == BASETEN) {
     BaseTenMath();
   }

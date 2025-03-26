@@ -13,5 +13,14 @@ DivisionResults divideTwoNums(int dividend, int divisor);
 void printDivResult(DivisionResults results, int dividend, int divisor);
 std::string addTwoBinary(std::string bin1 ,std::string bin2);
 int DecValTest(DivisionResults results);
+void exitMessage();
+enum operationType {
+    EXIT = 0,
+    ALL,
+    ADDITION,
+    MULTIPLICATION,
+    DIVISION,
+    BINARY
+  };
 
 #endif
