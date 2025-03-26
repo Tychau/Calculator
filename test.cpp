@@ -15,14 +15,6 @@ void TestSuccess() {
     std::cout << "\033[32mPASS: \033[0m";
 }
 
-enum TestChoice {
-    ALL = 0,
-    ADDITION,
-    MULTIPLICATION,
-    DIVISION,
-    BINARY,
-};
-
 void BinTest(std::string a, std::string b, std::string expectedstr) {
     std::string result = addTwoBinary(a, b);
     if (result == expectedstr) {
@@ -40,7 +32,7 @@ void BinTestCases() {
     std::cout << "|BINARY ADDITION|" << std::endl;
 
     // basic additions
-    BinTest("0", "0", "1");
+    BinTest("0", "0", "0");
     BinTest("0", "1", "1");
     BinTest("1", "0", "1");
     BinTest("1", "1", "10");
@@ -91,7 +83,7 @@ void DivisionTestCases() {
     passedTest = 0;
     std::cout << "|DIVISION|" << std::endl;
     //positive / positive 1 dec place
-    DivTest(5, 2, 2, 6);
+    DivTest(5, 2, 2, 5);
     //positive / negative 1 dec place
     DivTest(5, -2, -2, 5);
     //negative / negative 1 dec place
@@ -147,7 +139,7 @@ void MultiplicationTestCases() {
     passedTest = 0;
     std::cout << "|MULTIPLICATION|" << std::endl;
     //positive x positive
-    MultiplicationTest(5, 4, 21);
+    MultiplicationTest(5, 4, 20);
     //positive x negative
     MultiplicationTest(5, -4, -20);
     //negative x negative
@@ -186,7 +178,7 @@ void AddTestCases() {
     passedTest = 0;
     std::cout << "|ADDITION|" << std::endl;
     //positive + positive
-    AddTest(5, 4, 69);
+    AddTest(5, 4, 9);
     //positive + negative
     AddTest(-5, 4, -1);
     //negative + negative
@@ -221,19 +213,23 @@ void AllTestCases() {
 
 void TestChoiceMenu() {
     std::cout << "Choose which operation to test: \n";
-    std::cout << "0. All \n";
-    std::cout << "1. Addition \n";
-    std::cout << "2. Multiplication \n";
-    std::cout << "3. Division \n";
-    std::cout << "4. Binary \n" << std::endl;
+    std::cout << "0. Exit\n";
+    std::cout << "1. All \n";
+    std::cout << "2. Addition \n";
+    std::cout << "3. Multiplication \n";
+    std::cout << "4. Division \n";
+    std::cout << "5. Binary \n" << std::endl;
     std::cout << ">  ";
 
     int chosenop = getUserInput();
-    TestChoice chosentest = static_cast<TestChoice>(chosenop);
+    operationType chosentest = static_cast<operationType>(chosenop);
+    if (chosenop == EXIT) {
+        exitMessage();
+        exit(0);
+    }
     if (chosenop == ALL) {
         AllTestCases();
     }
-    
     if (chosenop == ADDITION) {
         AddTestCases();
     }
