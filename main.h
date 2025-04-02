@@ -16,10 +16,10 @@ int DecValTest(DivisionResults results);
 void exitMessage();
 enum operationType {
     EXIT = 0,
-    ALL,
     ADDITION,
     MULTIPLICATION,
     DIVISION,
+    ALL,
     BINARY
   };
 

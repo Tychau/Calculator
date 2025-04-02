@@ -214,11 +214,11 @@ void AllTestCases() {
 void TestChoiceMenu() {
     std::cout << "Choose which operation to test: \n";
     std::cout << "0. Exit\n";
-    std::cout << "1. All \n";
-    std::cout << "2. Addition \n";
-    std::cout << "3. Multiplication \n";
-    std::cout << "4. Division \n";
-    std::cout << "5. Binary \n" << std::endl;
+    std::cout << "1. Addition \n";
+    std::cout << "2. Multiplication \n";
+    std::cout << "3. Division \n";
+    std::cout << "4. Binary \n";
+    std::cout << "5. All \n" << std::endl;
     std::cout << ">  ";
 
     int chosenop = getUserInput();
@@ -226,9 +226,6 @@ void TestChoiceMenu() {
     if (chosenop == EXIT) {
         exitMessage();
         exit(0);
-    }
-    if (chosenop == ALL) {
-        AllTestCases();
     }
     if (chosenop == ADDITION) {
         AddTestCases();
@@ -241,6 +238,9 @@ void TestChoiceMenu() {
     }
     if (chosenop == BINARY) {
         BinTestCases();
+    }
+    if (chosenop == ALL) {
+        AllTestCases();
     }
 }
 

@@ -1,39 +1,50 @@
+# Compiler
 CC = g++
-CFLAGS = -Wall -g # -Wall enables all warnings, -g adds debugging information
-LDFLAGS = 
+
+# Compiler flags
+CFLAGS = -Wall -g
 TESTFLAGS = -DTEST_MODE
 
-# Source files and object files
-SOURCES = $(wildcard *.cpp)
-OBJECTS = $(SOURCES:.cpp=.o)
+# Boost header path
+BOOST_INCLUDE = C:/Users/Vangay/OneDrive/Desktop/CodeFiles/boost_1_87_0
 
+# Executable names
 MAIN_EXEC = main
 TEST_EXEC = test
+BOOST_TEST_EXEC = boost_test
+
+# Source files
+MAIN_SRC = main.cpp
+TEST_SRC = $(MAIN_SRC)
+BOOST_TEST_SRC = boost_test.cpp $(MAIN_SRC)
 
 # Default target
 all: $(MAIN_EXEC)
 
-# Compile main.cpp normally
-$(MAIN_EXEC):
-	$(CC) $(CFLAGS) main.cpp -o $(MAIN_EXEC)
+# --- Build targets ---
 
-# Compile object files
-%.o: %.cpp
-	$(CC) $(CFLAGS) -c $< -o $@
+# Build main program
+$(MAIN_EXEC): $(MAIN_SRC)
+	$(CC) $(CFLAGS) -I$(BOOST_INCLUDE) $(MAIN_SRC) -o $(MAIN_EXEC)
 
-# Link object files to create the executable
-# $(MAIN_EXEC): $(OBJECTS)
-# 	$(CC) $(LDFLAGS) $^ -o $@
+# Build your custom test program
+$(TEST_EXEC): $(TEST_SRC)
+	$(CC) $(CFLAGS) $(TESTFLAGS) -I$(BOOST_INCLUDE) $(TEST_SRC) -o $(TEST_EXEC)
 
-$(TEST_EXEC): $(SOURCES)
-	$(CC) $(TESTFLAGS) $(SOURCES) -o $(TEST_EXEC)
+# Build Boost test program (exclude main() by defining TEST_MODE)
+$(BOOST_TEST_EXEC): $(BOOST_TEST_SRC)
+	$(CC) $(CFLAGS) -DTEST_MODE -I$(BOOST_INCLUDE) $(BOOST_TEST_SRC) -o $(BOOST_TEST_EXEC)
 
-# Run programs
+# --- Run targets ---
+
 run: $(MAIN_EXEC)
 	./$(MAIN_EXEC)
 
 run_test: $(TEST_EXEC)
 	./$(TEST_EXEC)
+
+run_boost_test: $(BOOST_TEST_EXEC)
+	./$(BOOST_TEST_EXEC)
 
 # Clean build artifacts 
 clean:
