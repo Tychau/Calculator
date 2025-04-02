@@ -15,7 +15,7 @@ BOOST_TEST_EXEC = boost_test
 
 # Source files
 MAIN_SRC = main.cpp
-TEST_SRC = $(MAIN_SRC)
+TEST_SRC = test.cpp main.cpp
 BOOST_TEST_SRC = boost_test.cpp $(MAIN_SRC)
 
 # Default target

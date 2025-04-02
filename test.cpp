@@ -223,23 +223,23 @@ void TestChoiceMenu() {
 
     int chosenop = getUserInput();
     operationType chosentest = static_cast<operationType>(chosenop);
-    if (chosenop == EXIT) {
+    if (chosentest == EXIT) {
         exitMessage();
         exit(0);
     }
-    if (chosenop == ADDITION) {
+    if (chosentest == ADDITION) {
         AddTestCases();
     }
-    if (chosenop == MULTIPLICATION) {
+    if (chosentest == MULTIPLICATION) {
         MultiplicationTestCases();
     }
-    if (chosenop == DIVISION) {
+    if (chosentest == DIVISION) {
         DivisionTestCases();
     }
-    if (chosenop == BINARY) {
+    if (chosentest == BINARY) {
         BinTestCases();
     }
-    if (chosenop == ALL) {
+    if (chosentest == ALL) {
         AllTestCases();
     }
 }
